@@ -1,0 +1,25 @@
+name: TrueNAS Builds
+
+on:
+  workflow_dispatch:
+    # inputs:
+    #   version:
+    #     type: string
+    #     description: TrueNAS Version
+    #     required: true
+    #     default: 24.04.2
+
+jobs:
+  Build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Build
+      run: |
+        pushd build-scripts/truenas/
+        ./build.sh TrueNAS-SCALE-Dragonfish/24.04.2
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: libosdp-ubuntu-latest-binaries.zip
+        path: build-scripts/truenas/build/
