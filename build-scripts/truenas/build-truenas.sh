@@ -25,9 +25,13 @@ all:
 
 EOF
 
-make 
+make
+
+cd ../cli
+make
 
 cd ../../../
 mkdir -p $1
 cp truenas_working/ugreen_dx4600_leds_controller/kmod/*.ko $1
+cp truenas_working/ugreen_dx4600_leds_controller/cli/ugreen_leds_cli $1
 rm -fr truenas_working

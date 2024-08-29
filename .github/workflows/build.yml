@@ -1,0 +1,24 @@
+name: CI Build
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        type: string
+        description: TrueNAS Version
+        required: true
+        default: 24.04.2
+
+jobs:
+  TrueNAS:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Build
+      run: |
+        pushd build-scripts/truenas/
+        bash build.sh TrueNAS-SCALE-Dragonfish/${{ github.event.inputs.version }}
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: truenas-binaries.zip
+        path: build-scripts/truenas/build/
